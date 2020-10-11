@@ -1,4 +1,4 @@
-import java.util.Enumeration;
+package Models;
 
 public class OnlineCustomer<Online> extends Customer{
 
@@ -8,6 +8,27 @@ public class OnlineCustomer<Online> extends Customer{
     public String username;
     public boolean Online;
     double furtherDiscount = 0.05;
+    double totalCost;
+    double cost;
+
+    public OnlineCustomer() {
+
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+
+
+    public OnlineCustomer(double cost) {
+        this.cost = cost;
+    }
+
     public enum customerCategory{
         INDIVIDUAL(1),
         BUSINESS(0.02),
@@ -17,10 +38,12 @@ public class OnlineCustomer<Online> extends Customer{
         }
 
     }
-    public OnlineCustomer(String usrnm, boolean Ol) {//constructor with parameters
+    public void OnlineCustomer(String  usrnm, boolean Ol,double cst) {//constructor with parameters
         String username = usrnm;
         boolean Online = Ol;
+        double cost = cst;
     }
+
     public void setUsername(String usrnm)
     {
         username = usrnm;
@@ -39,5 +62,23 @@ public class OnlineCustomer<Online> extends Customer{
     public boolean getOnline()
     {
         return Online;
+    }
+
+    public double getTotalCost()
+    {
+       if (!getOnline()){
+           if(username == String.valueOf(customerCategory.BUSINESS)){
+               totalCost= cost - cost*0.02-cost*0.05;
+           }
+           if(username == String.valueOf(customerCategory.GOVERNMENT)){
+               totalCost= cost - cost*0.05-cost*0.05;
+           }
+           if(username == String.valueOf(customerCategory.BUSINESS)){
+               totalCost= cost - cost-cost*0.05;
+           }
+           return totalCost;
+
+       } else
+        return totalCost;
     }
 }
